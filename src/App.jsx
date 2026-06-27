@@ -12,6 +12,7 @@ import ImageUpscalerPage from './pages/ImageUpscalerPage';
 import PdfCompressorPage from './pages/PdfCompressorPage';
 import PdfMergePage from './pages/PdfMergePage';
 import PdfSplitPage from './pages/PdfSplitPage';
+import PdfWordToPdfPage from './pages/PdfWordToPdfPage';
 import './App.css';
 
 function TopNav() {
@@ -64,6 +65,7 @@ function App() {
           <Route path="/pdf-compressor" element={<PdfCompressorPage />} />
           <Route path="/pdf-merge" element={<PdfMergePage />} />
           <Route path="/pdf-split" element={<PdfSplitPage />} />
+          <Route path="/word-to-pdf" element={<PdfWordToPdfPage />} />
         </Routes>
       </main>
 

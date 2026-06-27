@@ -185,6 +185,24 @@ export default function HomePage() {
             <p className="tool-card__desc">Extract pages from your PDF or save each page as a separate PDF file.</p>
           </div>
         </Link>
+
+        <Link to="/word-to-pdf" className="tool-card">
+          <div className="tool-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+              <line x1="16" y1="13" x2="8" y2="13" />
+              <line x1="16" y1="17" x2="8" y2="17" />
+              <polyline points="10 9 9 9 8 9" />
+              <path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4" />
+              <polyline points="14 2 14 8 20 8" />
+            </svg>
+          </div>
+          <div className="tool-card__content">
+            <h3 className="tool-card__title">Word to PDF</h3>
+            <p className="tool-card__desc">Convert your .docx documents to PDF format natively in your browser.</p>
+          </div>
+        </Link>
       </section>
     </div>
   );

@@ -1,0 +1,316 @@
+/* ===== Word to PDF Page ===== */
+
+.wp-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.wp-header {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.wp-title {
+  font-size: var(--font-3xl);
+  font-weight: 700;
+  color: var(--text-white);
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-3);
+  line-height: 1.1;
+}
+
+.wp-desc {
+  font-size: var(--font-base);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.wp-workspace {
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Upload Area */
+.wp-upload {
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-xl);
+  padding: var(--space-16) var(--space-6);
+  text-align: center;
+  cursor: pointer;
+  background: var(--bg-card);
+  transition: all var(--transition-fast);
+}
+
+.wp-upload:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-hover);
+}
+
+.wp-upload--drag {
+  border-color: var(--text-white);
+  background: var(--bg-elevated);
+  border-style: solid;
+}
+
+.wp-upload__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.wp-upload__icon {
+  color: var(--text-muted);
+  margin-bottom: var(--space-3);
+  width: 32px;
+  height: 32px;
+}
+
+.wp-upload__text {
+  font-size: var(--font-lg);
+  font-weight: 500;
+  color: var(--text-white);
+}
+
+.wp-upload__subtext {
+  font-size: var(--font-sm);
+  color: var(--text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.wp-upload__btn {
+  display: inline-block;
+  margin-top: var(--space-3);
+  padding: 8px 20px;
+  background: var(--text-white);
+  color: var(--bg-primary);
+  font-size: var(--font-sm);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.wp-upload__btn:hover { opacity: 0.85; }
+
+/* Editor Area */
+.wp-editor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.wp-editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-card);
+  padding: var(--space-6);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-subtle);
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.wp-editor-title {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--text-white);
+  margin-bottom: 4px;
+}
+
+.wp-editor-subtitle {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+}
+
+.wp-editor-actions {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Progress */
+.wp-progress-card {
+  padding: var(--space-6);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  text-align: center;
+}
+
+.wp-progress-title {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-white);
+  margin-bottom: var(--space-4);
+}
+
+.wp-progress-bar {
+  width: 100%;
+  max-width: 400px;
+  height: 6px;
+  background: var(--border-default);
+  border-radius: var(--radius-full);
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.wp-progress-fill {
+  height: 100%;
+  background: var(--text-white);
+  border-radius: var(--radius-full);
+  transition: width 0.3s ease;
+}
+
+@keyframes wp-loading {
+  0% { left: -30%; width: 30%; position: absolute; }
+  50% { width: 50%; }
+  100% { left: 100%; width: 30%; position: absolute; }
+}
+
+/* Hidden Content container for PDF generation */
+.wp-hidden-content-container {
+  display: none;
+}
+
+/* The actual printable area */
+.wp-print-area {
+  background: white;
+  color: black;
+  padding: 40px;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 12pt;
+  line-height: 1.5;
+  width: 800px; /* Force an A4-like width for html2pdf to process nicely */
+}
+
+.wp-print-area h1, 
+.wp-print-area h2, 
+.wp-print-area h3, 
+.wp-print-area h4 {
+  color: black;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+}
+
+.wp-print-area h1 { font-size: 24pt; }
+.wp-print-area h2 { font-size: 18pt; }
+.wp-print-area h3 { font-size: 14pt; }
+
+.wp-print-area p {
+  margin-bottom: 1em;
+}
+
+.wp-print-area img {
+  max-width: 100%;
+  height: auto;
+  margin: 1em 0;
+}
+
+.wp-print-area table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+}
+
+.wp-print-area th, 
+.wp-print-area td {
+  border: 1px solid #000;
+  padding: 8px;
+  text-align: left;
+}
+
+/* Buttons */
+.wp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: var(--font-sm);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  border: none;
+  transition: opacity var(--transition-fast);
+}
+
+.wp-btn--primary {
+  background: var(--text-white);
+  color: var(--bg-primary);
+}
+
+.wp-btn--primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.wp-btn--secondary {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-default);
+}
+
+.wp-btn--danger {
+  background: rgba(229, 72, 77, 0.1);
+  color: #e5484d;
+  border: 1px solid rgba(229, 72, 77, 0.3);
+}
+
+.wp-btn:hover:not(:disabled) { opacity: 0.85; }
+
+/* Info Alert */
+.wp-alert {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.wp-alert-icon {
+  color: #3b82f6;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.wp-alert-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.wp-alert-title {
+  font-weight: 600;
+  color: var(--text-white);
+  font-size: var(--font-sm);
+}
+
+.wp-alert-desc {
+  color: var(--text-secondary);
+  font-size: var(--font-sm);
+  margin-top: 2px;
+}
+
+@media (max-width: 768px) {
+  .wp-editor-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+  
+  .wp-editor-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  
+  .wp-btn { flex: 1; min-width: 120px; }
+}
