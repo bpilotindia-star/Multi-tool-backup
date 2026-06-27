@@ -18,6 +18,14 @@ export default function PdfWatermarkPage() {
   
   const [isDragging, setIsDragging] = useState(false);
   const dragCounter = useRef(0);
+  
+  // Draggable Watermark State
+  const [position, setPosition] = useState({ x: 50, y: 50 });
+  const [isDraggingWM, setIsDraggingWM] = useState(false);
+  const dragStartPos = useRef({ x: 0, y: 0 });
+  const dragStartElementPos = useRef({ x: 0, y: 0 });
+  const previewImgRef = useRef(null);
+  const wmRef = useRef(null);
 
   // Watermark Settings
   const [wmMode, setWmMode] = useState('text'); // 'text' | 'image'
@@ -33,7 +41,7 @@ export default function PdfWatermarkPage() {
   // Image Settings
   const [wmImageFile, setWmImageFile] = useState(null);
   const [wmImagePreview, setWmImagePreview] = useState('');
-  const [wmImageScale, setWmImageScale] = useState(0.5); // 0.1 to 2
+  const [wmImageSize, setWmImageSize] = useState(150); // pixels
   const [wmImageOpacity, setWmImageOpacity] = useState(0.5);
 
   const loadPDF = async (file) => {
@@ -129,6 +137,37 @@ export default function PdfWatermarkPage() {
     } : { r: 0, g: 0, b: 0 };
   };
 
+  // --- Watermark Drag Logic ---
+  const onPointerDown = (e) => {
+    e.preventDefault();
+    setIsDraggingWM(true);
+    dragStartPos.current = { x: e.clientX, y: e.clientY };
+    dragStartElementPos.current = { ...position };
+  };
+
+  useEffect(() => {
+    const onPointerMove = (e) => {
+      if (!isDraggingWM) return;
+      const dx = e.clientX - dragStartPos.current.x;
+      const dy = e.clientY - dragStartPos.current.y;
+      setPosition({
+        x: dragStartElementPos.current.x + dx,
+        y: dragStartElementPos.current.y + dy
+      });
+    };
+
+    const onPointerUp = () => setIsDraggingWM(false);
+
+    if (isDraggingWM) {
+      window.addEventListener('pointermove', onPointerMove);
+      window.addEventListener('pointerup', onPointerUp);
+    }
+    return () => {
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointerup', onPointerUp);
+    };
+  }, [isDraggingWM]);
+
   const applyWatermark = async () => {
     if (!fileBuffer) return;
     
@@ -151,7 +190,7 @@ export default function PdfWatermarkPage() {
       const pages = pdfDoc.getPages();
 
       let pdfImage = null;
-      let imgDims = null;
+      let originalImgDims = null;
 
       if (wmMode === 'image') {
         const imgBuffer = await wmImageFile.arrayBuffer();
@@ -160,31 +199,58 @@ export default function PdfWatermarkPage() {
         } else {
           pdfImage = await pdfDoc.embedPng(imgBuffer);
         }
-        imgDims = pdfImage.scale(Number(wmImageScale));
+        originalImgDims = pdfImage.scale(1); // intrinsic dimensions
       }
 
       const { r, g, b } = hexToRgb(wmColor);
 
       pages.forEach((page) => {
         const { width, height } = page.getSize();
+        
+        let scaleX = 1;
+        let scaleY = 1;
+        let pdfX = 0;
+        let pdfY = 0;
+        let mappedScale = 1;
+
+        if (previewImgRef.current && wmRef.current) {
+          const previewWidth = previewImgRef.current.clientWidth;
+          const previewHeight = previewImgRef.current.clientHeight;
+          
+          scaleX = width / previewWidth;
+          scaleY = height / previewHeight;
+          
+          // PDF-lib y-axis is from bottom. So bottom-left of UI div is the anchor.
+          const wmVisualHeight = wmRef.current.clientHeight;
+          pdfX = position.x * scaleX;
+          pdfY = height - ((position.y + wmVisualHeight) * scaleY);
+          
+          mappedScale = scaleX; // Use scaleX for proportional resizing (like images/fonts)
+        }
 
         if (wmMode === 'text') {
-          const textWidth = wmSize * 0.6 * wmText.length;
           page.drawText(wmText, {
-            x: width / 2 - textWidth / 2,
-            y: height / 2 - wmSize / 2,
-            size: Number(wmSize),
+            x: pdfX,
+            y: pdfY,
+            size: Number(wmSize) * mappedScale,
             color: rgb(r, g, b),
             opacity: Number(wmOpacity),
             rotate: degrees(Number(wmRotation)),
           });
-        } else if (wmMode === 'image' && pdfImage && imgDims) {
+        } else if (wmMode === 'image' && pdfImage && originalImgDims) {
+          // Intrinsic ratio
+          const imgRatio = originalImgDims.height / originalImgDims.width;
+          const targetWidth = Number(wmImageSize) * mappedScale;
+          const targetHeight = targetWidth * imgRatio;
+
           page.drawImage(pdfImage, {
-            x: width / 2 - imgDims.width / 2,
-            y: height / 2 - imgDims.height / 2,
-            width: imgDims.width,
-            height: imgDims.height,
+            x: pdfX,
+            y: pdfY,
+            width: targetWidth,
+            height: targetHeight,
             opacity: Number(wmImageOpacity),
+            // pdf-lib supports rotation on images as well, we use the same angle but counter-clockwise
+            rotate: degrees(Number(wmRotation)),
           });
         }
       });
@@ -336,8 +402,8 @@ export default function PdfWatermarkPage() {
                   </div>
                   
                   <div className="wm-control-group">
-                    <label className="wm-label">Scale: {Math.round(wmImageScale * 100)}%</label>
-                    <input type="range" className="wm-input" min="0.1" max="2" step="0.1" value={wmImageScale} onChange={e => setWmImageScale(e.target.value)} />
+                    <label className="wm-label">Image Size</label>
+                    <input type="range" className="wm-input" min="30" max="800" value={wmImageSize} onChange={e => setWmImageSize(e.target.value)} />
                   </div>
                   
                   <div className="wm-control-group">
@@ -352,13 +418,18 @@ export default function PdfWatermarkPage() {
             {pdfPreviewUrl && (
               <div className="wm-preview-section">
                 <h3 className="wm-preview-title">Live Preview (Page 1)</h3>
+                <p className="wm-editor-subtitle" style={{ alignSelf: 'flex-start', marginTop: '-8px' }}>Drag the watermark to position it perfectly.</p>
                 <div className="wm-preview-container">
-                  <img src={pdfPreviewUrl} alt="PDF Page 1" className="wm-preview-pdf" />
+                  <img ref={previewImgRef} src={pdfPreviewUrl} alt="PDF Page 1" className="wm-preview-pdf" draggable={false} />
                   
                   <div 
+                    ref={wmRef}
                     className="wm-preview-overlay" 
+                    onPointerDown={onPointerDown}
                     style={{ 
-                      transform: `translate(-50%, -50%) rotate(${wmMode === 'text' ? wmRotation : 0}deg)`,
+                      left: `${position.x}px`,
+                      top: `${position.y}px`,
+                      transform: `rotate(-${wmMode === 'text' ? wmRotation : 0}deg)`,
                       opacity: wmMode === 'text' ? wmOpacity : wmImageOpacity
                     }}
                   >
@@ -367,7 +438,8 @@ export default function PdfWatermarkPage() {
                         color: wmColor, 
                         fontSize: `${wmSize}px`, 
                         fontWeight: 'bold',
-                        fontFamily: 'Helvetica, sans-serif'
+                        fontFamily: 'Helvetica, sans-serif',
+                        padding: '2px'
                       }}>
                         {wmText}
                       </span>
@@ -377,7 +449,8 @@ export default function PdfWatermarkPage() {
                       <img 
                         src={wmImagePreview} 
                         alt="Watermark Overlay" 
-                        style={{ transform: `scale(${wmImageScale})` }} 
+                        style={{ width: `${wmImageSize}px`, height: 'auto', pointerEvents: 'none' }} 
+                        draggable={false}
                       />
                     )}
                   </div>

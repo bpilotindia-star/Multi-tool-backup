@@ -18,6 +18,7 @@ export default function VideoWatermarkPage() {
   
   const [wmImageFile, setWmImageFile] = useState(null);
   const [wmImageUrl, setWmImageUrl] = useState('');
+  const [wmImageSize, setWmImageSize] = useState(150);
   
   const [position, setPosition] = useState({ x: 20, y: 20 });
   const [isDraggingWM, setIsDraggingWM] = useState(false);
@@ -234,7 +235,7 @@ export default function VideoWatermarkPage() {
       setProgressMsg('An error occurred during rendering.');
       setTimeout(() => setStatus('idle'), 3000);
     }
-  }, [sourceFile, wmType, wmText, wmFontFamily, wmImageUrl, wmFontSize, wmColor, wmOpacity, position]);
+  }, [sourceFile, wmType, wmText, wmFontFamily, wmImageUrl, wmImageSize, wmFontSize, wmColor, wmOpacity, position]);
 
   return (
     <div className="vw-page">
@@ -353,15 +354,23 @@ export default function VideoWatermarkPage() {
                 )}
 
                 {wmType === 'image' && (
-                  <div className="vw-control-group">
-                    <label className="vw-label">Upload Image</label>
-                    <div className="vw-file-input-wrapper">
-                      <label className="vw-file-btn" htmlFor="wm-img-upload">
-                        {wmImageFile ? wmImageFile.name : 'Choose Image (PNG/JPG)'}
-                      </label>
-                      <input type="file" id="wm-img-upload" accept="image/png,image/jpeg" onChange={handleImageChange} hidden />
+                  <>
+                    <div className="vw-control-group">
+                      <label className="vw-label">Upload Image</label>
+                      <div className="vw-file-input-wrapper">
+                        <label className="vw-file-btn" htmlFor="wm-img-upload">
+                          {wmImageFile ? wmImageFile.name : 'Choose Image (PNG/JPG)'}
+                        </label>
+                        <input type="file" id="wm-img-upload" accept="image/png,image/jpeg" onChange={handleImageChange} hidden />
+                      </div>
                     </div>
-                  </div>
+                    {wmImageFile && (
+                      <div className="vw-control-group">
+                        <label className="vw-label">Image Size</label>
+                        <input type="range" min="30" max="800" value={wmImageSize} onChange={e => setWmImageSize(parseInt(e.target.value))} />
+                      </div>
+                    )}
+                  </>
                 )}
 
                 <div className="vw-control-group" style={{ marginTop: 'var(--space-4)' }}>
@@ -410,7 +419,13 @@ export default function VideoWatermarkPage() {
                         </span>
                       ) : (
                         wmImageUrl ? (
-                          <img ref={wmImgRef} src={wmImageUrl} alt="Watermark" className="vw-watermark-img" />
+                          <img 
+                            ref={wmImgRef} 
+                            src={wmImageUrl} 
+                            alt="Watermark" 
+                            className="vw-watermark-img" 
+                            style={{ width: `${wmImageSize}px`, height: 'auto', display: 'block', maxWidth: 'none' }}
+                          />
                         ) : (
                           <span style={{ color: 'var(--text-muted)', padding: '5px' }}>No image selected</span>
                         )
