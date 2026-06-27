@@ -1,0 +1,323 @@
+/* ===== PDF Merge Page ===== */
+
+.pm-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.pm-header {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.pm-title {
+  font-size: var(--font-3xl);
+  font-weight: 700;
+  color: var(--text-white);
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-3);
+  line-height: 1.1;
+}
+
+.pm-desc {
+  font-size: var(--font-base);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.pm-workspace {
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Upload Area */
+.pm-upload {
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-xl);
+  padding: var(--space-16) var(--space-6);
+  text-align: center;
+  cursor: pointer;
+  background: var(--bg-card);
+  transition: all var(--transition-fast);
+}
+
+.pm-upload:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-hover);
+}
+
+.pm-upload--drag {
+  border-color: var(--text-white);
+  background: var(--bg-elevated);
+  border-style: solid;
+}
+
+.pm-upload__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.pm-upload__icon {
+  color: var(--text-muted);
+  margin-bottom: var(--space-3);
+  width: 32px;
+  height: 32px;
+}
+
+.pm-upload__text {
+  font-size: var(--font-lg);
+  font-weight: 500;
+  color: var(--text-white);
+}
+
+.pm-upload__subtext {
+  font-size: var(--font-sm);
+  color: var(--text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.pm-upload__btn {
+  display: inline-block;
+  margin-top: var(--space-3);
+  padding: 8px 20px;
+  background: var(--text-white);
+  color: var(--bg-primary);
+  font-size: var(--font-sm);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.pm-upload__btn:hover { opacity: 0.85; }
+
+/* Editor Area */
+.pm-editor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.pm-editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-card);
+  padding: var(--space-6);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-subtle);
+}
+
+.pm-editor-title {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--text-white);
+  margin-bottom: 4px;
+}
+
+.pm-editor-subtitle {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+}
+
+.pm-editor-actions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+/* Progress Bar */
+.pm-progress-bar {
+  padding: var(--space-4) var(--space-6);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.pm-progress-text {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--text-white);
+  text-align: center;
+}
+
+.pm-progress-track {
+  width: 100%;
+  height: 6px;
+  background: var(--border-default);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.pm-progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 30%;
+  background: var(--text-white);
+  border-radius: var(--radius-full);
+  animation: pm-loading 1s infinite linear;
+}
+
+@keyframes pm-loading {
+  0% { left: -30%; width: 30%; }
+  50% { width: 50%; }
+  100% { left: 100%; width: 30%; }
+}
+
+/* List */
+.pm-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.pm-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-6);
+  transition: border-color var(--transition-fast);
+}
+
+.pm-list-item:hover {
+  border-color: var(--border-hover);
+}
+
+.pm-list-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.pm-list-icon {
+  color: var(--text-muted);
+  display: flex;
+}
+
+.pm-list-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pm-list-name {
+  font-size: var(--font-base);
+  font-weight: 500;
+  color: var(--text-white);
+}
+
+.pm-list-size {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+}
+
+.pm-list-controls {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.pm-btn-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--text-secondary);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.pm-btn-icon:hover:not(:disabled) {
+  background: var(--bg-hover);
+  color: var(--text-white);
+}
+
+.pm-btn-icon:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.pm-btn-icon--danger:hover:not(:disabled) {
+  background: rgba(229, 72, 77, 0.1);
+  color: #e5484d;
+}
+
+/* Buttons */
+.pm-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: var(--font-sm);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  border: none;
+  transition: opacity var(--transition-fast);
+}
+
+.pm-btn--primary {
+  background: var(--text-white);
+  color: var(--bg-primary);
+}
+
+.pm-btn--primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pm-btn--secondary {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-default);
+}
+
+.pm-btn--danger {
+  background: rgba(229, 72, 77, 0.1);
+  color: #e5484d;
+  border: 1px solid rgba(229, 72, 77, 0.3);
+}
+
+.pm-btn:hover:not(:disabled) { opacity: 0.85; }
+
+@media (max-width: 768px) {
+  .pm-editor-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+  
+  .pm-editor-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  
+  .pm-btn { flex: 1; min-width: 120px; }
+  
+  .pm-list-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+  
+  .pm-list-controls {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
