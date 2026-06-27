@@ -1,0 +1,308 @@
+/* ===== Excel to PDF Page ===== */
+
+.ep-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.ep-header {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.ep-title {
+  font-size: var(--font-3xl);
+  font-weight: 700;
+  color: var(--text-white);
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-3);
+  line-height: 1.1;
+}
+
+.ep-desc {
+  font-size: var(--font-base);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.ep-workspace {
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Upload Area */
+.ep-upload {
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-xl);
+  padding: var(--space-16) var(--space-6);
+  text-align: center;
+  cursor: pointer;
+  background: var(--bg-card);
+  transition: all var(--transition-fast);
+}
+
+.ep-upload:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-hover);
+}
+
+.ep-upload--drag {
+  border-color: var(--text-white);
+  background: var(--bg-elevated);
+  border-style: solid;
+}
+
+.ep-upload__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.ep-upload__icon {
+  color: var(--text-muted);
+  margin-bottom: var(--space-3);
+  width: 32px;
+  height: 32px;
+}
+
+.ep-upload__text {
+  font-size: var(--font-lg);
+  font-weight: 500;
+  color: var(--text-white);
+}
+
+.ep-upload__subtext {
+  font-size: var(--font-sm);
+  color: var(--text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.ep-upload__btn {
+  display: inline-block;
+  margin-top: var(--space-3);
+  padding: 8px 20px;
+  background: var(--text-white);
+  color: var(--bg-primary);
+  font-size: var(--font-sm);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.ep-upload__btn:hover { opacity: 0.85; }
+
+/* Editor Area */
+.ep-editor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.ep-editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-card);
+  padding: var(--space-6);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-subtle);
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.ep-editor-title {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--text-white);
+  margin-bottom: 4px;
+}
+
+.ep-editor-subtitle {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+}
+
+.ep-editor-actions {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Progress */
+.ep-progress-card {
+  padding: var(--space-6);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  text-align: center;
+}
+
+.ep-progress-title {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-white);
+  margin-bottom: var(--space-4);
+}
+
+.ep-progress-bar {
+  width: 100%;
+  max-width: 400px;
+  height: 6px;
+  background: var(--border-default);
+  border-radius: var(--radius-full);
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.ep-progress-fill {
+  height: 100%;
+  background: var(--text-white);
+  border-radius: var(--radius-full);
+  transition: width 0.3s ease;
+}
+
+@keyframes ep-loading {
+  0% { left: -30%; width: 30%; position: absolute; }
+  50% { width: 50%; }
+  100% { left: 100%; width: 30%; position: absolute; }
+}
+
+/* Hidden Content container for PDF generation */
+.ep-hidden-content-container {
+  display: none;
+}
+
+/* The actual printable area */
+.ep-print-area {
+  background: white;
+  color: black;
+  padding: 30px;
+  font-family: Arial, sans-serif;
+  font-size: 10pt;
+  width: 1000px; /* Slightly wider to accommodate many columns */
+}
+
+.ep-print-area h2 {
+  font-size: 16pt;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.ep-print-area table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.ep-print-area th, 
+.ep-print-area td {
+  border: 1px solid #ccc;
+  padding: 6px 8px;
+  text-align: left;
+  white-space: pre-wrap; /* Preserve line breaks from Excel */
+}
+
+.ep-print-area th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+.ep-print-area tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* Buttons */
+.ep-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: var(--font-sm);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  border: none;
+  transition: opacity var(--transition-fast);
+}
+
+.ep-btn--primary {
+  background: var(--text-white);
+  color: var(--bg-primary);
+}
+
+.ep-btn--primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ep-btn--secondary {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-default);
+}
+
+.ep-btn--danger {
+  background: rgba(229, 72, 77, 0.1);
+  color: #e5484d;
+  border: 1px solid rgba(229, 72, 77, 0.3);
+}
+
+.ep-btn:hover:not(:disabled) { opacity: 0.85; }
+
+/* Info Alert */
+.ep-alert {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.ep-alert-icon {
+  color: #3b82f6;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.ep-alert-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.ep-alert-title {
+  font-weight: 600;
+  color: var(--text-white);
+  font-size: var(--font-sm);
+}
+
+.ep-alert-desc {
+  color: var(--text-secondary);
+  font-size: var(--font-sm);
+  margin-top: 2px;
+}
+
+@media (max-width: 768px) {
+  .ep-editor-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+  
+  .ep-editor-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  
+  .ep-btn { flex: 1; min-width: 120px; }
+}

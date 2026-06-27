@@ -13,6 +13,7 @@ import PdfCompressorPage from './pages/PdfCompressorPage';
 import PdfMergePage from './pages/PdfMergePage';
 import PdfSplitPage from './pages/PdfSplitPage';
 import PdfWordToPdfPage from './pages/PdfWordToPdfPage';
+import PdfExcelToPdfPage from './pages/PdfExcelToPdfPage';
 import './App.css';
 
 function TopNav() {
@@ -66,6 +67,7 @@ function App() {
           <Route path="/pdf-merge" element={<PdfMergePage />} />
           <Route path="/pdf-split" element={<PdfSplitPage />} />
           <Route path="/word-to-pdf" element={<PdfWordToPdfPage />} />
+          <Route path="/excel-to-pdf" element={<PdfExcelToPdfPage />} />
         </Routes>
       </main>
 
