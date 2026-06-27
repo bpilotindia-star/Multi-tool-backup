@@ -19,6 +19,7 @@ import PdfProtectPage from './pages/PdfProtectPage';
 import PdfUnlockPage from './pages/PdfUnlockPage';
 import VideoClipCutterPage from './pages/VideoClipCutterPage';
 import VideoWatermarkPage from './pages/VideoWatermarkPage';
+import PhotoGridPrinterPage from './pages/PhotoGridPrinterPage';
 import './App.css';
 
 function TopNav() {
@@ -78,6 +79,7 @@ function App() {
           <Route path="/pdf-unlock" element={<PdfUnlockPage />} />
           <Route path="/video-cutter" element={<VideoClipCutterPage />} />
           <Route path="/video-watermark" element={<VideoWatermarkPage />} />
+          <Route path="/photo-grid" element={<PhotoGridPrinterPage />} />
         </Routes>
       </main>
 
