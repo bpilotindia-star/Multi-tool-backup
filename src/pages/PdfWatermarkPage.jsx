@@ -1,11 +1,17 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { PDFDocument, rgb, degrees } from 'pdf-lib';
+import * as pdfjsLib from 'pdfjs-dist';
+import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.mjs?url';
 import { saveAs } from 'file-saver';
+import { HexColorPicker } from "react-colorful";
 import './PdfWatermarkPage.css';
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 
 export default function PdfWatermarkPage() {
   const [sourceFile, setSourceFile] = useState(null);
   const [fileBuffer, setFileBuffer] = useState(null);
+  const [pdfPreviewUrl, setPdfPreviewUrl] = useState('');
   
   const [status, setStatus] = useState('idle'); // idle | processing | done | error
   const [progressMsg, setProgressMsg] = useState('');
@@ -19,6 +25,7 @@ export default function PdfWatermarkPage() {
   // Text Settings
   const [wmText, setWmText] = useState('CONFIDENTIAL');
   const [wmColor, setWmColor] = useState('#ff0000');
+  const [showColorPicker, setShowColorPicker] = useState(false);
   const [wmSize, setWmSize] = useState(60);
   const [wmOpacity, setWmOpacity] = useState(0.3);
   const [wmRotation, setWmRotation] = useState(45);
@@ -39,9 +46,37 @@ export default function PdfWatermarkPage() {
       const buffer = await file.arrayBuffer();
       setFileBuffer(buffer);
       setSourceFile(file);
+      
+      // Generate preview of the first page
+      generatePreview(buffer.slice(0)); 
     } catch (err) {
       console.error(err);
       alert('Failed to load PDF.');
+    }
+  };
+  
+  const generatePreview = async (buffer) => {
+    try {
+      const typedarray = new Uint8Array(buffer);
+      const pdf = await pdfjsLib.getDocument(typedarray).promise;
+      const page = await pdf.getPage(1); // Get first page
+      
+      // Render at a decent scale for preview
+      const viewport = page.getViewport({ scale: 1.0 });
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+      
+      await page.render({
+        canvasContext: context,
+        viewport: viewport
+      }).promise;
+      
+      const url = canvas.toDataURL('image/jpeg', 0.8);
+      setPdfPreviewUrl(url);
+    } catch (error) {
+      console.error('Failed to generate preview', error);
     }
   };
 
@@ -81,10 +116,10 @@ export default function PdfWatermarkPage() {
   const clearFile = () => {
     setSourceFile(null);
     setFileBuffer(null);
+    setPdfPreviewUrl('');
     setStatus('idle');
   };
 
-  // Helper to convert hex to rgb float (0-1) for pdf-lib
   const hexToRgb = (hex) => {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result ? {
@@ -111,7 +146,6 @@ export default function PdfWatermarkPage() {
     setProgressMsg('Applying watermark to all pages...');
 
     try {
-      // Load the fresh buffer from the original file object to avoid detachment issues
       const freshBuffer = await sourceFile.arrayBuffer();
       const pdfDoc = await PDFDocument.load(freshBuffer);
       const pages = pdfDoc.getPages();
@@ -131,16 +165,13 @@ export default function PdfWatermarkPage() {
 
       const { r, g, b } = hexToRgb(wmColor);
 
-      // Loop through all pages and apply watermark in the center
       pages.forEach((page) => {
         const { width, height } = page.getSize();
 
         if (wmMode === 'text') {
-          // Estimate text width roughly (font size * 0.6 * characters)
           const textWidth = wmSize * 0.6 * wmText.length;
-          
           page.drawText(wmText, {
-            x: width / 2 - textWidth / 2, // Approximate centering
+            x: width / 2 - textWidth / 2,
             y: height / 2 - wmSize / 2,
             size: Number(wmSize),
             color: rgb(r, g, b),
@@ -259,11 +290,25 @@ export default function PdfWatermarkPage() {
                   
                   <div className="wm-control-group">
                     <label className="wm-label">Color</label>
-                    <input type="color" className="wm-input" value={wmColor} onChange={e => setWmColor(e.target.value)} />
+                    <div className="wm-color-picker-wrapper">
+                      <div 
+                        className="wm-color-swatch" 
+                        style={{ backgroundColor: wmColor }} 
+                        onClick={() => setShowColorPicker(true)}
+                      />
+                      {showColorPicker && (
+                        <>
+                          <div className="wm-color-cover" onClick={() => setShowColorPicker(false)} />
+                          <div className="wm-color-popover">
+                            <HexColorPicker color={wmColor} onChange={setWmColor} />
+                          </div>
+                        </>
+                      )}
+                    </div>
                   </div>
                   
                   <div className="wm-control-group">
-                    <label className="wm-label">Size: {wmSize}px</label>
+                    <label className="wm-label">Size: {wmSize}</label>
                     <input type="range" className="wm-input" min="10" max="150" value={wmSize} onChange={e => setWmSize(e.target.value)} />
                   </div>
                   
@@ -301,8 +346,45 @@ export default function PdfWatermarkPage() {
                   </div>
                 </div>
               )}
-
             </div>
+
+            {/* Live Preview Section */}
+            {pdfPreviewUrl && (
+              <div className="wm-preview-section">
+                <h3 className="wm-preview-title">Live Preview (Page 1)</h3>
+                <div className="wm-preview-container">
+                  <img src={pdfPreviewUrl} alt="PDF Page 1" className="wm-preview-pdf" />
+                  
+                  <div 
+                    className="wm-preview-overlay" 
+                    style={{ 
+                      transform: `translate(-50%, -50%) rotate(${wmMode === 'text' ? wmRotation : 0}deg)`,
+                      opacity: wmMode === 'text' ? wmOpacity : wmImageOpacity
+                    }}
+                  >
+                    {wmMode === 'text' && (
+                      <span style={{ 
+                        color: wmColor, 
+                        fontSize: `${wmSize}px`, 
+                        fontWeight: 'bold',
+                        fontFamily: 'Helvetica, sans-serif'
+                      }}>
+                        {wmText}
+                      </span>
+                    )}
+                    
+                    {wmMode === 'image' && wmImagePreview && (
+                      <img 
+                        src={wmImagePreview} 
+                        alt="Watermark Overlay" 
+                        style={{ transform: `scale(${wmImageScale})` }} 
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+            
           </div>
         )}
       </div>

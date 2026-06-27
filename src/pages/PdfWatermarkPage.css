@@ -175,7 +175,7 @@
 
 .wm-controls {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: var(--space-6);
 }
 
@@ -226,10 +226,45 @@
   cursor: pointer;
 }
 
-.wm-input[type="color"] {
-  padding: 2px;
+/* Custom Color Picker */
+.wm-color-picker-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-top: 4px;
+}
+
+.wm-color-swatch {
+  width: 40px;
   height: 40px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--border-strong);
   cursor: pointer;
+  transition: border-color var(--transition-fast);
+}
+
+.wm-color-swatch:hover {
+  border-color: var(--text-secondary);
+}
+
+.wm-color-popover {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 10;
+  background: var(--bg-card);
+  padding: 12px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.wm-color-cover {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9;
 }
 
 .wm-image-upload {
@@ -253,12 +288,66 @@
 }
 
 .wm-image-preview {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-sm);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
   border: 1px solid var(--border-strong);
   object-fit: cover;
   background: white;
+}
+
+/* Live Preview Section */
+.wm-preview-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  background: var(--bg-card);
+  padding: var(--space-6);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+}
+
+.wm-preview-title {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-white);
+  align-self: flex-start;
+}
+
+.wm-preview-container {
+  position: relative;
+  max-width: 100%;
+  border: 1px solid var(--border-strong);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  background: white;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+}
+
+.wm-preview-pdf {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 500px; /* Scale preview down slightly */
+}
+
+.wm-preview-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  pointer-events: none; /* Let clicks pass through */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  /* Transform is handled inline for live updates */
+}
+
+.wm-preview-overlay img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
 }
 
 /* Progress */
