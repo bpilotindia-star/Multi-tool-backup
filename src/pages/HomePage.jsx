@@ -219,6 +219,20 @@ export default function HomePage() {
             <p className="tool-card__desc">Convert your .xlsx or .csv spreadsheets into PDF directly in your browser.</p>
           </div>
         </Link>
+
+        <Link to="/pdf-watermark" className="tool-card">
+          <div className="tool-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+              <path d="M2 12h20" />
+            </svg>
+          </div>
+          <div className="tool-card__content">
+            <h3 className="tool-card__title">Watermark PDF</h3>
+            <p className="tool-card__desc">Add custom text or image watermarks to all pages of your PDF instantly.</p>
+          </div>
+        </Link>
       </section>
     </div>
   );

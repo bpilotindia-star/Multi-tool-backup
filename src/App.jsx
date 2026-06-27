@@ -14,6 +14,7 @@ import PdfMergePage from './pages/PdfMergePage';
 import PdfSplitPage from './pages/PdfSplitPage';
 import PdfWordToPdfPage from './pages/PdfWordToPdfPage';
 import PdfExcelToPdfPage from './pages/PdfExcelToPdfPage';
+import PdfWatermarkPage from './pages/PdfWatermarkPage';
 import './App.css';
 
 function TopNav() {
@@ -68,6 +69,7 @@ function App() {
           <Route path="/pdf-split" element={<PdfSplitPage />} />
           <Route path="/word-to-pdf" element={<PdfWordToPdfPage />} />
           <Route path="/excel-to-pdf" element={<PdfExcelToPdfPage />} />
+          <Route path="/pdf-watermark" element={<PdfWatermarkPage />} />
         </Routes>
       </main>
 
