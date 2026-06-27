@@ -30,6 +30,7 @@ export default defineConfig({
       },
       workbox: {
         globIgnores: ['assets/ort-wasm-simd-threaded*.wasm'],
+        maximumFileSizeToCacheInBytes: 6 * 1024 * 1024, // 6 MiB to support the large compiled bundles
         runtimeCaching: [
           {
             urlPattern: /\/assets\/.*\.wasm$/,
