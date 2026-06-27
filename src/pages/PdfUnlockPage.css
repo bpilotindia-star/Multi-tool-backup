@@ -1,0 +1,273 @@
+/* ===== Unlock PDF Page ===== */
+
+.unlock-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.unlock-header {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.unlock-title {
+  font-size: var(--font-3xl);
+  font-weight: 700;
+  color: var(--text-white);
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-3);
+  line-height: 1.1;
+}
+
+.unlock-desc {
+  font-size: var(--font-base);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.unlock-workspace {
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Upload Area */
+.unlock-upload {
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-xl);
+  padding: var(--space-16) var(--space-6);
+  text-align: center;
+  cursor: pointer;
+  background: var(--bg-card);
+  transition: all var(--transition-fast);
+}
+
+.unlock-upload:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-hover);
+}
+
+.unlock-upload--drag {
+  border-color: var(--text-white);
+  background: var(--bg-elevated);
+  border-style: solid;
+}
+
+.unlock-upload__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.unlock-upload__icon {
+  color: var(--text-muted);
+  margin-bottom: var(--space-3);
+  width: 32px;
+  height: 32px;
+}
+
+.unlock-upload__text {
+  font-size: var(--font-lg);
+  font-weight: 500;
+  color: var(--text-white);
+}
+
+.unlock-upload__btn {
+  display: inline-block;
+  margin-top: var(--space-3);
+  padding: 8px 20px;
+  background: var(--text-white);
+  color: var(--bg-primary);
+  font-size: var(--font-sm);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.unlock-upload__btn:hover { opacity: 0.85; }
+
+/* Editor Area */
+.unlock-editor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.unlock-editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-card);
+  padding: var(--space-6);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-subtle);
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.unlock-editor-title {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--text-white);
+  margin-bottom: 4px;
+}
+
+.unlock-editor-subtitle {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+}
+
+.unlock-editor-actions {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Settings Panel */
+.unlock-settings {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.unlock-settings-title {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-white);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.unlock-control-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: 400px;
+}
+
+.unlock-label {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--text-white);
+}
+
+.unlock-input {
+  padding: 12px 14px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  color: var(--text-white);
+  font-size: var(--font-base);
+  transition: border-color var(--transition-fast);
+  letter-spacing: 2px;
+}
+
+.unlock-input:focus {
+  outline: none;
+  border-color: var(--text-secondary);
+}
+
+/* Progress */
+.unlock-progress-card {
+  padding: var(--space-6);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  text-align: center;
+}
+
+.unlock-progress-title {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-white);
+  margin-bottom: var(--space-4);
+}
+
+.unlock-progress-bar {
+  width: 100%;
+  max-width: 400px;
+  height: 6px;
+  background: var(--border-default);
+  border-radius: var(--radius-full);
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.unlock-progress-fill {
+  height: 100%;
+  background: var(--text-white);
+  border-radius: var(--radius-full);
+  transition: width 0.3s ease;
+}
+
+@keyframes unlock-loading {
+  0% { left: -30%; width: 30%; position: absolute; }
+  50% { width: 50%; }
+  100% { left: 100%; width: 30%; position: absolute; }
+}
+
+/* Error States */
+.unlock-error-msg {
+  color: #ef4444;
+  font-size: var(--font-sm);
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+/* Buttons */
+.unlock-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: var(--font-sm);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  border: none;
+  transition: opacity var(--transition-fast);
+}
+
+.unlock-btn--primary {
+  background: var(--text-white);
+  color: var(--bg-primary);
+}
+
+.unlock-btn--primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.unlock-btn--secondary {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-default);
+}
+
+.unlock-btn:hover:not(:disabled) { opacity: 0.85; }
+
+@media (max-width: 768px) {
+  .unlock-editor-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+  
+  .unlock-editor-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  
+  .unlock-btn { flex: 1; min-width: 120px; }
+}

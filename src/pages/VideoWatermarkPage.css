@@ -1,0 +1,429 @@
+/* ===== Video Watermark Page ===== */
+
+.vw-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.vw-header {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.vw-title {
+  font-size: var(--font-3xl);
+  font-weight: 700;
+  color: var(--text-white);
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-3);
+  line-height: 1.1;
+}
+
+.vw-desc {
+  font-size: var(--font-base);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.vw-workspace {
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Upload Area */
+.vw-upload {
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-xl);
+  padding: var(--space-16) var(--space-6);
+  text-align: center;
+  cursor: pointer;
+  background: var(--bg-card);
+  transition: all var(--transition-fast);
+}
+
+.vw-upload:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-hover);
+}
+
+.vw-upload--drag {
+  border-color: var(--text-white);
+  background: var(--bg-elevated);
+  border-style: solid;
+}
+
+.vw-upload__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.vw-upload__icon {
+  color: var(--text-muted);
+  margin-bottom: var(--space-3);
+  width: 32px;
+  height: 32px;
+}
+
+.vw-upload__text {
+  font-size: var(--font-lg);
+  font-weight: 500;
+  color: var(--text-white);
+}
+
+.vw-upload__btn {
+  display: inline-block;
+  margin-top: var(--space-3);
+  padding: 8px 20px;
+  background: var(--text-white);
+  color: var(--bg-primary);
+  font-size: var(--font-sm);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+/* Editor Area */
+.vw-editor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.vw-editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-card);
+  padding: var(--space-6);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-subtle);
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.vw-editor-title {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--text-white);
+  margin-bottom: 4px;
+}
+
+.vw-editor-actions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+/* Layout: Settings + Preview */
+.vw-editor-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: var(--space-6);
+}
+
+/* Settings Panel */
+.vw-settings {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  height: fit-content;
+}
+
+.vw-settings-title {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-white);
+}
+
+/* Type Toggle */
+.vw-toggle {
+  display: flex;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-lg);
+  padding: 4px;
+}
+
+.vw-toggle-btn {
+  flex: 1;
+  padding: 8px 0;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: var(--font-sm);
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.vw-toggle-btn.active {
+  background: var(--bg-card);
+  color: var(--text-white);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.vw-control-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.vw-label {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.vw-input {
+  padding: 10px 14px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  color: var(--text-white);
+  font-size: var(--font-sm);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.vw-input:focus {
+  outline: none;
+  border-color: var(--text-secondary);
+}
+
+select.vw-input {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a1a1aa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px;
+  padding-right: 40px;
+}
+
+.vw-color-picker-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: 6px 12px;
+  position: relative;
+  transition: border-color var(--transition-fast);
+}
+
+.vw-color-picker-wrapper:focus-within {
+  border-color: var(--text-secondary);
+}
+
+.vw-color-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+.vw-color-hex-input {
+  background: transparent;
+  border: none;
+  color: var(--text-white);
+  font-size: var(--font-sm);
+  font-family: monospace;
+  letter-spacing: 1px;
+  width: 100px;
+}
+
+.vw-color-hex-input:focus {
+  outline: none;
+}
+
+.vw-color-popover {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 10;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+}
+
+.vw-color-cover {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.vw-file-input-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.vw-file-btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  background: var(--bg-elevated);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-size: var(--font-sm);
+  cursor: pointer;
+}
+
+/* Preview Panel */
+.vw-preview {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.vw-preview-wrapper {
+  position: relative;
+  display: inline-block;
+  background: #000;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  /* Prevents dragging from highlighting text */
+  user-select: none;
+}
+
+.vw-video {
+  display: block;
+  max-width: 100%;
+  max-height: 500px;
+  /* Make sure video size drives wrapper size */
+}
+
+.vw-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* allow clicks to pass through to video unless hitting the watermark */
+  pointer-events: none; 
+}
+
+.vw-watermark {
+  position: absolute;
+  pointer-events: auto;
+  cursor: grab;
+  /* outline for visibility */
+  border: 1px dashed transparent;
+  transition: border-color 0.2s ease;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.vw-watermark:hover {
+  border-color: rgba(255,255,255,0.5);
+}
+
+.vw-watermark:active {
+  cursor: grabbing;
+}
+
+.vw-watermark-img {
+  display: block;
+  max-width: 200px;
+  height: auto;
+  pointer-events: none; /* let parent handle drag */
+}
+
+/* Progress */
+.vw-progress-card {
+  padding: var(--space-6);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.vw-progress-title {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-white);
+}
+
+.vw-progress-bar {
+  width: 100%;
+  max-width: 400px;
+  height: 6px;
+  background: var(--border-default);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.vw-progress-fill {
+  height: 100%;
+  background: var(--text-white);
+  border-radius: var(--radius-full);
+  transition: width 0.3s ease;
+}
+
+@keyframes vw-loading {
+  0% { left: -30%; width: 30%; position: absolute; }
+  50% { width: 50%; }
+  100% { left: 100%; width: 30%; position: absolute; }
+}
+
+/* Buttons */
+.vw-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: var(--font-sm);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  border: none;
+  transition: opacity var(--transition-fast);
+}
+
+.vw-btn--primary {
+  background: var(--text-white);
+  color: var(--bg-primary);
+}
+
+.vw-btn--primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.vw-btn--secondary {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-default);
+}
+
+.vw-btn:hover:not(:disabled) { opacity: 0.85; }
+
+
+@media (max-width: 900px) {
+  .vw-editor-layout {
+    grid-template-columns: 1fr;
+  }
+}

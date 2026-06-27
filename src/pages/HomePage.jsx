@@ -233,6 +233,67 @@ export default function HomePage() {
             <p className="tool-card__desc">Add custom text or image watermarks to all pages of your PDF instantly.</p>
           </div>
         </Link>
+
+        <Link to="/pdf-protect" className="tool-card">
+          <div className="tool-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          </div>
+          <div className="tool-card__content">
+            <h3 className="tool-card__title">Protect PDF</h3>
+            <p className="tool-card__desc">Lock your PDF file with a secure password using AES-256 encryption.</p>
+          </div>
+        </Link>
+
+        <Link to="/pdf-unlock" className="tool-card">
+          <div className="tool-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
+            </svg>
+          </div>
+          <div className="tool-card__content">
+            <h3 className="tool-card__title">Unlock PDF</h3>
+            <p className="tool-card__desc">Permanently remove password protection from an encrypted PDF.</p>
+          </div>
+        </Link>
+
+        <Link to="/video-cutter" className="tool-card">
+          <div className="tool-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="6" cy="6" r="3"></circle>
+              <circle cx="6" cy="18" r="3"></circle>
+              <line x1="20" y1="4" x2="8.12" y2="15.88"></line>
+              <line x1="14.47" y1="14.48" x2="20" y2="20"></line>
+              <line x1="8.12" y1="8.12" x2="12" y2="12"></line>
+            </svg>
+          </div>
+          <div className="tool-card__content">
+            <h3 className="tool-card__title">Video Clip Cutter</h3>
+            <p className="tool-card__desc">Trim and cut video clips by selecting start and end timestamps.</p>
+          </div>
+        </Link>
+
+        <Link to="/video-watermark" className="tool-card">
+          <div className="tool-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+              <line x1="7" y1="2" x2="7" y2="22"></line>
+              <line x1="17" y1="2" x2="17" y2="22"></line>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <line x1="2" y1="7" x2="7" y2="7"></line>
+              <line x1="2" y1="17" x2="7" y2="17"></line>
+              <line x1="17" y1="17" x2="22" y2="17"></line>
+              <line x1="17" y1="7" x2="22" y2="7"></line>
+            </svg>
+          </div>
+          <div className="tool-card__content">
+            <h3 className="tool-card__title">Video Watermark</h3>
+            <p className="tool-card__desc">Drag and drop text or image watermarks directly onto your videos.</p>
+          </div>
+        </Link>
       </section>
     </div>
   );

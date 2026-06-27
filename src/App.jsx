@@ -15,6 +15,10 @@ import PdfSplitPage from './pages/PdfSplitPage';
 import PdfWordToPdfPage from './pages/PdfWordToPdfPage';
 import PdfExcelToPdfPage from './pages/PdfExcelToPdfPage';
 import PdfWatermarkPage from './pages/PdfWatermarkPage';
+import PdfProtectPage from './pages/PdfProtectPage';
+import PdfUnlockPage from './pages/PdfUnlockPage';
+import VideoClipCutterPage from './pages/VideoClipCutterPage';
+import VideoWatermarkPage from './pages/VideoWatermarkPage';
 import './App.css';
 
 function TopNav() {
@@ -70,6 +74,10 @@ function App() {
           <Route path="/word-to-pdf" element={<PdfWordToPdfPage />} />
           <Route path="/excel-to-pdf" element={<PdfExcelToPdfPage />} />
           <Route path="/pdf-watermark" element={<PdfWatermarkPage />} />
+          <Route path="/pdf-protect" element={<PdfProtectPage />} />
+          <Route path="/pdf-unlock" element={<PdfUnlockPage />} />
+          <Route path="/video-cutter" element={<VideoClipCutterPage />} />
+          <Route path="/video-watermark" element={<VideoWatermarkPage />} />
         </Routes>
       </main>
 

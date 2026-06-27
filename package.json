@@ -10,7 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ffmpeg/ffmpeg": "^0.12.15",
+    "@ffmpeg/util": "^0.12.2",
     "@imgly/background-removal": "^1.7.0",
+    "@pdfsmaller/pdf-decrypt": "^1.0.1",
+    "@pdfsmaller/pdf-encrypt": "^1.0.2",
     "browser-image-compression": "^2.0.2",
     "file-saver": "^2.0.5",
     "html2pdf.js": "^0.14.0",
