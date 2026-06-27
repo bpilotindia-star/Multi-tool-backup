@@ -10,7 +10,6 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 
 export default function PdfSplitPage() {
   const [sourceFile, setSourceFile] = useState(null);
-  const [fileBuffer, setFileBuffer] = useState(null);
   const [status, setStatus] = useState('idle'); // idle | parsing | extracting | done | error
   const [progressMsg, setProgressMsg] = useState('');
   const [progressPct, setProgressPct] = useState(0);
@@ -29,7 +28,6 @@ export default function PdfSplitPage() {
 
     try {
       const arrayBuffer = await file.arrayBuffer();
-      setFileBuffer(arrayBuffer);
       setSourceFile(file);
 
       const typedarray = new Uint8Array(arrayBuffer);
@@ -107,7 +105,6 @@ export default function PdfSplitPage() {
 
   const handleReset = () => {
     setSourceFile(null);
-    setFileBuffer(null);
     setPages([]);
     setStatus('idle');
     setProgressPct(0);
@@ -125,7 +122,8 @@ export default function PdfSplitPage() {
     setProgressMsg('Preparing PDF...');
 
     try {
-      const sourcePdf = await PDFDocument.load(fileBuffer);
+      const arrayBuffer = await sourceFile.arrayBuffer();
+      const sourcePdf = await PDFDocument.load(arrayBuffer);
       
       if (exportMode === 'single') {
         setProgressMsg('Creating single PDF...');
