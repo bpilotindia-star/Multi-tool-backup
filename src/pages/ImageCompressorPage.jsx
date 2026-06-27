@@ -1,9 +1,17 @@
 import { useState, useRef, useCallback } from 'react';
+import useSEO from '../hooks/useSEO';
 import imageCompression from 'browser-image-compression';
 import { saveAs } from 'file-saver';
 import './ImageCompressorPage.css';
 
 export default function ImageCompressorPage() {
+  useSEO({
+    title: 'Free Image Compressor | Reduce Photo Size Online',
+    description: 'Compress JPG, PNG, and WebP images instantly in your browser. Reduce file size without losing quality. 100% private, no uploads.',
+    keywords: 'image compressor, compress image online, reduce photo size, compress jpeg, compress png, client side image compressor, free image compressor',
+    url: 'https://multi-tool-platform.online/image-compressor'
+  });
+
   const [sourceFile, setSourceFile] = useState(null);
   const [sourcePreview, setSourcePreview] = useState(null);
   const [resultFile, setResultFile] = useState(null);

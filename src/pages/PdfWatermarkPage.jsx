@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
+import useSEO from '../hooks/useSEO';
 import { PDFDocument, rgb, degrees } from 'pdf-lib';
 import * as pdfjsLib from 'pdfjs-dist';
 import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.mjs?url';
@@ -9,6 +10,13 @@ import './PdfWatermarkPage.css';
 pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 
 export default function PdfWatermarkPage() {
+  useSEO({
+    title: 'Free PDF Watermark Tool | Add Text or Image to PDF',
+    description: 'Add a custom text or image watermark to your PDF documents. Change color, opacity, and rotation. 100% secure client-side processing.',
+    keywords: 'add watermark to pdf, pdf watermark, protect pdf, text watermark, image watermark pdf, free pdf tool',
+    url: 'https://multi-tool-platform.online/pdf-watermark'
+  });
+
   const [sourceFile, setSourceFile] = useState(null);
   const [fileBuffer, setFileBuffer] = useState(null);
   const [pdfPreviewUrl, setPdfPreviewUrl] = useState('');

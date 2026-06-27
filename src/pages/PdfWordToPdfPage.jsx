@@ -1,9 +1,17 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import useSEO from '../hooks/useSEO';
 import mammoth from 'mammoth';
 import html2pdf from 'html2pdf.js';
 import './PdfWordToPdfPage.css';
 
 export default function PdfWordToPdfPage() {
+  useSEO({
+    title: 'Free Word to PDF Converter | Convert DOCX to PDF Online',
+    description: 'Convert Microsoft Word (DOCX) documents to PDF format instantly in your browser. 100% private, no server processing.',
+    keywords: 'word to pdf, docx to pdf, convert word to pdf online, free word converter, client side docx to pdf, ms word to pdf',
+    url: 'https://multi-tool-platform.online/word-to-pdf'
+  });
+
   const [sourceFile, setSourceFile] = useState(null);
   const [htmlContent, setHtmlContent] = useState('');
 

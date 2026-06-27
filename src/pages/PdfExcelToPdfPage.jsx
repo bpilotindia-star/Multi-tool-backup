@@ -1,9 +1,17 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import useSEO from '../hooks/useSEO';
 import * as XLSX from 'xlsx';
 import html2pdf from 'html2pdf.js';
 import './PdfExcelToPdfPage.css';
 
 export default function PdfExcelToPdfPage() {
+  useSEO({
+    title: 'Free Excel to PDF Converter | Convert XLSX/CSV to PDF',
+    description: 'Convert Excel spreadsheets (XLSX) and CSV files to PDF easily. Preview tables and export as PDF 100% privately in your browser.',
+    keywords: 'excel to pdf, xlsx to pdf, csv to pdf, convert excel online, client side excel converter, free spreadsheet to pdf',
+    url: 'https://multi-tool-platform.online/excel-to-pdf'
+  });
+
   const [sourceFile, setSourceFile] = useState(null);
   const [htmlContent, setHtmlContent] = useState('');
   const [sheetsList, setSheetsList] = useState([]); // Array of sheet names

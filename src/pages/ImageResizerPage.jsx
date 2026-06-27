@@ -1,4 +1,5 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
+import useSEO from '../hooks/useSEO';
 import Cropper from 'react-easy-crop';
 import { saveAs } from 'file-saver';
 import './ImageResizerPage.css';
@@ -51,6 +52,13 @@ async function getCroppedImg(imageSrc, pixelCrop, fileType = 'image/jpeg') {
 }
 
 export default function ImageResizerPage() {
+  useSEO({
+    title: 'Free Image Resizer | Resize Photos Online without losing quality',
+    description: 'Resize images by custom dimensions (pixels) or percentages. Fast, completely free, and secure client-side processing.',
+    keywords: 'image resizer, resize photo online, change image dimensions, scale image, resize image free, client side image resizer',
+    url: 'https://multi-tool-platform.online/image-resizer'
+  });
+
   const [sourceFile, setSourceFile] = useState(null);
   const [sourcePreview, setSourcePreview] = useState(null);
   

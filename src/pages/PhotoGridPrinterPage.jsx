@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
+import useSEO from '../hooks/useSEO';
 import { jsPDF } from 'jspdf';
 import './PhotoGridPrinterPage.css';
 
@@ -22,6 +23,13 @@ const PAPER_SIZES = [
 const PREVIEW_DPI = 3; // px per mm for preview
 
 export default function PhotoGridPrinterPage() {
+  useSEO({
+    title: 'Free Photo Grid Printer | Make Passport & Stamp Photos Online',
+    description: 'Instantly generate a print-ready A4 grid of your passport or ID photos. Features customizable margins, gaps, and cutting guides. 100% free and private.',
+    keywords: 'photo grid printer, passport photo maker, stamp photo print, print multiple photos on a4, ID photo generator, free photo grid tool',
+    url: 'https://multi-tool-platform.online/photo-grid'
+  });
+
   const [sourceFile, setSourceFile] = useState(null);
   const [imageUrl, setImageUrl] = useState('');
   const [sizeId, setSizeId] = useState('passport');

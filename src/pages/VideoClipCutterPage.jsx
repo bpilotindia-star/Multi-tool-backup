@@ -1,4 +1,5 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
+import useSEO from '../hooks/useSEO';
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { fetchFile } from '@ffmpeg/util';
 import './VideoClipCutterPage.css';
@@ -25,6 +26,13 @@ const parseTime = (str) => {
 };
 
 export default function VideoClipCutterPage() {
+  useSEO({
+    title: 'Free Video Clip Cutter | Trim & Cut Videos Online',
+    description: 'Easily cut, trim, and extract clips from your videos directly in your browser. Powered by FFmpeg WebAssembly for 100% private processing.',
+    keywords: 'video clip cutter, video trimmer, cut video online, trim video free, extract video clip, client side video cutter, ffmpeg wasm',
+    url: 'https://multi-tool-platform.online/video-cutter'
+  });
+
   const [sourceFile, setSourceFile] = useState(null);
   const [videoUrl, setVideoUrl] = useState('');
   const [duration, setDuration] = useState(0);

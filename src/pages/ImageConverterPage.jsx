@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import useSEO from '../hooks/useSEO';
 import { saveAs } from 'file-saver';
 import './ImageConverterPage.css';
 
@@ -9,6 +10,13 @@ const SUPPORTED_FORMATS = [
 ];
 
 export default function ImageConverterPage() {
+  useSEO({
+    title: 'Free Image Converter | Convert JPG, PNG, WebP & GIF Online',
+    description: 'Easily convert images between formats (JPG, PNG, WEBP, GIF, BMP) directly in your browser. Batch convert multiple images instantly and privately.',
+    keywords: 'image converter, convert jpg to png, convert png to webp, batch image converter, online image converter, free image converter client side',
+    url: 'https://multi-tool-platform.online/image-converter'
+  });
+
   const [sourceFile, setSourceFile] = useState(null);
   const [sourcePreview, setSourcePreview] = useState(null);
   const [targetFormat, setTargetFormat] = useState('');

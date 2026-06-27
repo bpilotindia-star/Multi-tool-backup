@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
+import useSEO from '../hooks/useSEO';
 import { Stage, Layer, Image as KonvaImage, Rect, Circle, Line, Group, Transformer } from 'react-konva';
 import { saveAs } from 'file-saver';
 import './ImageBlurPage.css';
@@ -12,6 +13,13 @@ const TOOLS = [
 ];
 
 export default function ImageBlurPage() {
+  useSEO({
+    title: 'Free Image Blur Tool | Blur Faces & Backgrounds Online',
+    description: 'Easily blur sensitive information, faces, or backgrounds in your photos. 100% private client-side processing.',
+    keywords: 'image blur, blur face online, blur background, censor image, privacy tool, client side image editor, free image blur',
+    url: 'https://multi-tool-platform.online/image-blur'
+  });
+
   const [sourceFile, setSourceFile] = useState(null);
   const [imageObj, setImageObj] = useState(null);
   const [blurredImageObj, setBlurredImageObj] = useState(null);

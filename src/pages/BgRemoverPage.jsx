@@ -1,9 +1,17 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import useSEO from '../hooks/useSEO';
 import { removeBackground } from '@imgly/background-removal';
 import { saveAs } from 'file-saver';
 import './BgRemoverPage.css';
 
 export default function BgRemoverPage() {
+  useSEO({
+    title: 'Free Image Background Remover | 100% Private & Client-Side',
+    description: 'Remove the background from any image instantly in your browser using local AI. No images are uploaded to any server. Completely free and private.',
+    keywords: 'remove background online free, background remover, transparent background, erase background, local ai background removal, client side background remover',
+    url: 'https://multi-tool-platform.online/bg-remover'
+  });
+
   const [sourceImage, setSourceImage] = useState(null);
   const [resultImage, setResultImage] = useState(null);
   

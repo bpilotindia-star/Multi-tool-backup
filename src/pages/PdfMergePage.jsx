@@ -1,8 +1,16 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import useSEO from '../hooks/useSEO';
 import { PDFDocument } from 'pdf-lib';
 import './PdfMergePage.css';
 
 export default function PdfMergePage() {
+  useSEO({
+    title: 'Free PDF Merger | Combine PDF Files Online',
+    description: 'Merge multiple PDF files into one easily. Reorder pages with drag and drop. 100% private, no files are uploaded to any server.',
+    keywords: 'merge pdf, combine pdf, join pdf files, pdf merger online, free pdf merger, client side pdf tools',
+    url: 'https://multi-tool-platform.online/pdf-merge'
+  });
+
   const [pdfFiles, setPdfFiles] = useState([]); // array of { id, file, name, size }
   const [status, setStatus] = useState('idle'); // idle | processing | done
   const [progressMsg, setProgressMsg] = useState('');

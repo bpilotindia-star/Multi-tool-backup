@@ -1,7 +1,15 @@
 import { useState, useRef, useEffect } from 'react';
+import useSEO from '../hooks/useSEO';
 import './ImageUpscalerPage.css';
 
 export default function ImageUpscalerPage() {
+  useSEO({
+    title: 'Free AI Image Upscaler | Enlarge Photos without Quality Loss',
+    description: 'Upscale and enhance your images using client-side AI algorithms. Make photos larger and sharper instantly, 100% privately.',
+    keywords: 'image upscaler, ai image upscaler, enlarge photo online, make image bigger, client side image upscaler, free photo enhancer',
+    url: 'https://multi-tool-platform.online/image-upscaler'
+  });
+
   const [image, setImage] = useState(null); // { file, dataUrl, width, height, size }
   const [scale, setScale] = useState(2);
   const [format, setFormat] = useState('image/png');

@@ -1,4 +1,5 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import useSEO from '../hooks/useSEO';
 import * as pdfjsLib from 'pdfjs-dist';
 import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.mjs?url';
 import JSZip from 'jszip';
@@ -8,6 +9,13 @@ import './PdfToImagePage.css';
 pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 
 export default function PdfToImagePage() {
+  useSEO({
+    title: 'Free PDF to Image Converter | Convert PDF to JPG/PNG Online',
+    description: 'Convert PDF pages into high-quality JPG or PNG images instantly. Processing happens entirely in your browser for total privacy.',
+    keywords: 'pdf to image, pdf to jpg, pdf to png, convert pdf to image, free pdf to jpg converter, client side pdf tools',
+    url: 'https://multi-tool-platform.online/pdf-to-image'
+  });
+
   const [sourceFile, setSourceFile] = useState(null);
   const [status, setStatus] = useState('idle'); // idle | processing | done | error
   const [progressMsg, setProgressMsg] = useState('');

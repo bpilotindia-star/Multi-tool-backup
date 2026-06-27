@@ -1,10 +1,18 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
+import useSEO from '../hooks/useSEO';
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { fetchFile } from '@ffmpeg/util';
 import { HexColorPicker } from 'react-colorful';
 import './VideoWatermarkPage.css';
 
 export default function VideoWatermarkPage() {
+  useSEO({
+    title: 'Free Video Watermark Tool | Add Text or Image to Video',
+    description: 'Protect your videos by adding text or image watermarks. Real-time preview and drag-and-drop placement. 100% private processing.',
+    keywords: 'add watermark to video, video watermark software, text watermark video, image watermark video, brand video online, free video watermark',
+    url: 'https://multi-tool-platform.online/video-watermark'
+  });
+
   const [sourceFile, setSourceFile] = useState(null);
   const [videoUrl, setVideoUrl] = useState('');
   

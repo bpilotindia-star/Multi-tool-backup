@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import useSEO from '../hooks/useSEO';
 import * as pdfjsLib from 'pdfjs-dist';
 import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.mjs?url';
 import { jsPDF } from 'jspdf';
@@ -8,6 +9,13 @@ import './PdfCompressorPage.css';
 pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 
 export default function PdfCompressorPage() {
+  useSEO({
+    title: 'Free PDF Compressor | Reduce PDF File Size Online',
+    description: 'Compress PDF files directly in your browser without uploading them. Reduce PDF size for email while keeping quality. 100% free and private.',
+    keywords: 'pdf compressor, reduce pdf size, compress pdf online, shrink pdf, client side pdf compressor, free pdf compressor',
+    url: 'https://multi-tool-platform.online/pdf-compressor'
+  });
+
   const [pdfFile, setPdfFile] = useState(null); // { file, name, size, totalPages }
   const [level, setLevel] = useState('medium'); // low | medium | extreme
   const [status, setStatus] = useState('idle'); // idle | processing | done

@@ -1,9 +1,17 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import useSEO from '../hooks/useSEO';
 import { decryptPDF } from '@pdfsmaller/pdf-decrypt';
 import { saveAs } from 'file-saver';
 import './PdfUnlockPage.css';
 
 export default function PdfUnlockPage() {
+  useSEO({
+    title: 'Free PDF Unlocker | Remove PDF Password Online',
+    description: 'Remove password protection from your PDF files if you know the password. Decrypt PDFs instantly without uploading files to a server.',
+    keywords: 'unlock pdf, remove pdf password, decrypt pdf, pdf password remover, free pdf unlocker online',
+    url: 'https://multi-tool-platform.online/pdf-unlock'
+  });
+
   const [sourceFile, setSourceFile] = useState(null);
   const [fileBuffer, setFileBuffer] = useState(null);
   const [password, setPassword] = useState('');

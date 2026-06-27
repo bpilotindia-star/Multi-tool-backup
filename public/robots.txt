@@ -1,0 +1,20 @@
+# Multi-Tool Platform — Robots.txt
+# Allow all crawlers to access all pages
+
+User-agent: *
+Allow: /
+Disallow: /assets/
+
+# Sitemap location
+Sitemap: https://multi-tool-platform.online/sitemap.xml
+
+# Crawl-delay (optional, polite rate)
+Crawl-delay: 1
+
+# Google-specific
+User-agent: Googlebot
+Allow: /
+
+# Bing-specific
+User-agent: Bingbot
+Allow: /

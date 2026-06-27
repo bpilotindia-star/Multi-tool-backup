@@ -1,4 +1,5 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
+import useSEO from '../hooks/useSEO';
 import VideoUploader from '../components/VideoUploader';
 import VideoPreview from '../components/VideoPreview';
 import FPSControl from '../components/FPSControl';
@@ -9,6 +10,13 @@ import { extractFrames, getVideoMetadata } from '../utils/frameExtractor';
 import './VideoToFramesPage.css';
 
 export default function VideoToFramesPage() {
+  useSEO({
+    title: 'Free Video to Frames Converter | Extract Images from Video',
+    description: 'Extract high-quality frames (PNG/JPG) from any video file right in your browser. 100% private, no server uploads required.',
+    keywords: 'video to frame, extract frames from video, video to png, video to jpg, video frame extractor free, client side video editor',
+    url: 'https://multi-tool-platform.online/video-to-frames'
+  });
+
   const [videoFile, setVideoFile] = useState(null);
   const [fps, setFps] = useState(5);
   const [videoDuration, setVideoDuration] = useState(0);

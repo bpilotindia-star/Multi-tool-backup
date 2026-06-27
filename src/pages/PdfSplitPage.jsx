@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import useSEO from '../hooks/useSEO';
 import * as pdfjsLib from 'pdfjs-dist';
 import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.mjs?url';
 import { PDFDocument } from 'pdf-lib';
@@ -9,6 +10,13 @@ import './PdfSplitPage.css';
 pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 
 export default function PdfSplitPage() {
+  useSEO({
+    title: 'Free PDF Splitter | Extract Pages from PDF Online',
+    description: 'Split PDF files into separate pages or extract specific page ranges. 100% private, fast, and completely free client-side tool.',
+    keywords: 'split pdf, extract pdf pages, separate pdf, cut pdf, free pdf splitter, client side pdf tools',
+    url: 'https://multi-tool-platform.online/pdf-split'
+  });
+
   const [sourceFile, setSourceFile] = useState(null);
   const [status, setStatus] = useState('idle'); // idle | parsing | extracting | done | error
   const [progressMsg, setProgressMsg] = useState('');

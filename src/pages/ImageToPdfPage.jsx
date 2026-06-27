@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import useSEO from '../hooks/useSEO';
 import { jsPDF } from 'jspdf';
 import { Stage, Layer, Image as KonvaImage, Transformer, Rect } from 'react-konva';
 import './ImageToPdfPage.css';
@@ -6,6 +7,13 @@ import './ImageToPdfPage.css';
 const A4_RATIO = 1.414;
 
 export default function ImageToPdfPage() {
+  useSEO({
+    title: 'Free Image to PDF Converter | Combine JPG/PNG to PDF',
+    description: 'Convert and combine multiple images (JPG, PNG, WebP) into a single PDF document. Adjust margins, orientation, and order. 100% private.',
+    keywords: 'image to pdf, jpg to pdf, png to pdf, convert image to pdf, combine images to pdf, free image to pdf converter',
+    url: 'https://multi-tool-platform.online/image-to-pdf'
+  });
+
   const [images, setImages] = useState([]); // array of { file, dataUrl, id, edited: boolean }
   const [status, setStatus] = useState('idle'); // idle | processing | done
   const [progressMsg, setProgressMsg] = useState('');

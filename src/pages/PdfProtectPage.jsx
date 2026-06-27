@@ -1,9 +1,17 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import useSEO from '../hooks/useSEO';
 import { encryptPDF } from '@pdfsmaller/pdf-encrypt';
 import { saveAs } from 'file-saver';
 import './PdfProtectPage.css';
 
 export default function PdfProtectPage() {
+  useSEO({
+    title: 'Free PDF Password Protector | Encrypt PDF Online',
+    description: 'Add password protection to your PDF files. Secure your documents with strong encryption instantly and 100% privately in your browser.',
+    keywords: 'protect pdf, password protect pdf, encrypt pdf, secure pdf, lock pdf, client side pdf protection, free pdf encrypter',
+    url: 'https://multi-tool-platform.online/pdf-protect'
+  });
+
   const [sourceFile, setSourceFile] = useState(null);
   const [fileBuffer, setFileBuffer] = useState(null);
   const [password, setPassword] = useState('');
