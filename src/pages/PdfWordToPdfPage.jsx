@@ -6,10 +6,10 @@ import './PdfWordToPdfPage.css';
 export default function PdfWordToPdfPage() {
   const [sourceFile, setSourceFile] = useState(null);
   const [htmlContent, setHtmlContent] = useState('');
-  
+
   const [status, setStatus] = useState('idle'); // idle | converting | done | error
   const [progressMsg, setProgressMsg] = useState('');
-  
+
   const [isDragging, setIsDragging] = useState(false);
   const dragCounter = useRef(0);
   const printAreaRef = useRef(null);
@@ -25,14 +25,14 @@ export default function PdfWordToPdfPage() {
 
     try {
       const arrayBuffer = await file.arrayBuffer();
-      
+
       // Convert .docx to HTML using mammoth
       const result = await mammoth.convertToHtml({ arrayBuffer: arrayBuffer });
       const html = result.value;
-      
+
       setSourceFile(file);
       setHtmlContent(html);
-      
+
       setStatus('done');
     } catch (err) {
       console.error(err);
@@ -75,14 +75,14 @@ export default function PdfWordToPdfPage() {
     setProgressMsg('Rendering and saving as PDF...');
 
     const element = printAreaRef.current;
-    
+
     // Set options for html2pdf
     const opt = {
-      margin:       10, // 10mm margin
-      filename:     sourceFile.name.replace('.docx', '.pdf'),
-      image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2, useCORS: true },
-      jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      margin: 10, // 10mm margin
+      filename: sourceFile.name.replace('.docx', '.pdf'),
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
     // Use html2pdf to generate and download the PDF
@@ -168,7 +168,7 @@ export default function PdfWordToPdfPage() {
 
             <div className="wp-alert">
               <div className="wp-alert-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><line x1="12" y1="16" x2="12" y2="12" /><line x1="12" y1="8" x2="12.01" y2="8" /></svg>
               </div>
               <div className="wp-alert-content">
                 <span className="wp-alert-title">Client-Side Limitations</span>
@@ -178,8 +178,8 @@ export default function PdfWordToPdfPage() {
 
             {/* Hidden container where html2pdf reads from */}
             <div className="wp-hidden-content-container">
-              <div 
-                className="wp-print-area" 
+              <div
+                className="wp-print-area"
                 ref={printAreaRef}
                 dangerouslySetInnerHTML={{ __html: htmlContent }}
               />
